@@ -1,9 +1,6 @@
 <?php
-// Credenziali (in futuro impareremo a nasconderle!)
-$host = getenv('DB_HOST');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
-$db   = 'ecommerce';
+
+require 'config.php'; // Carica le variabili da questo file
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);

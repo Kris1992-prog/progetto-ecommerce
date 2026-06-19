@@ -1,1 +1,10 @@
+# Non caricare la cartella con i dati del database
 db_data/
+
+# Non caricare file di configurazione con le password vere
+config.php
+.env
+
+# Ignora cartelle di sistema di Docker o editor
+.vscode/
+.DS_Store
