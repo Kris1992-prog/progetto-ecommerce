@@ -1,16 +1,14 @@
 <?php
 session_start(); // Avviamo la sessione per controllare chi sei
 
+require 'config.php'; // Carica le variabili da questo file
+
+
 // 1. Controllo di sicurezza: se non sei loggato, ti rimando al login
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
-
-$host = 'db';
-$db   = 'ecommerce';
-$user = 'root';
-$pass = 'password';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);

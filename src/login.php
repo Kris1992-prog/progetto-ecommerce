@@ -1,10 +1,7 @@
 <?php
-session_start(); // Fondamentale: avvia la sessione per ricordare l'utente
+require 'config.php'; // Carica le variabili da questo file
 
-$host = 'db';
-$db   = 'ecommerce';
-$user = 'root';
-$pass = 'password';
+session_start(); // Fondamentale: avvia la sessione per ricordare l'utente
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);

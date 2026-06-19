@@ -1,9 +1,6 @@
 <?php
-// Connessione al database
-$host = 'db';
-$db   = 'ecommerce';
-$user = 'root';
-$pass = 'password';
+
+require 'config.php';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
