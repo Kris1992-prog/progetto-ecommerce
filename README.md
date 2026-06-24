@@ -29,12 +29,11 @@ Il cuore del progetto. Definisce le relazioni tra web server, database e tool di
 - **Variabili d'Ambiente (Sicurezza):**
   - Si usano per passare credenziali (host, user, pass) al container senza scriverle nel codice.
 
-```yaml
-environment:
-  - DB_HOST=db
-  - DB_USER=root
-  - DB_PASS=INSERISCI_QUI_LA_TUA_PASSWORD_SICURA
-
+### Configurazione
+Per avviare il progetto, crea un file `.env` nella cartella principale basandoti su questo schema:
+DB_HOST=db
+DB_USER=root
+DB_PASS=inserisci_qui_la_tua_password
      
 # BACKEND & SICUREZZA (PHP/PDO)
  

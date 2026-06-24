@@ -1,14 +1,15 @@
 services:
   web:
-    build: .             # <--- Cambia 'image: php:8.2-apache' con 'build: .'
+    build: .
     ports:
       - "8080:80"
     volumes:
       - ./src:/var/www/html
     environment:
-      - DB_HOST=db
-      - DB_USER=root
-      - DB_PASS=password
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+  
   db:
     image: mysql:8.0
     environment:

@@ -8,3 +8,5 @@ config.php
 # Ignora cartelle di sistema di Docker o editor
 .vscode/
 .DS_Store
+
+.env
