@@ -33,7 +33,7 @@ Il cuore del progetto. Definisce le relazioni tra web server, database e tool di
 environment:
   - DB_HOST=db
   - DB_USER=root
-  - DB_PASS=password
+  - DB_PASS=INSERISCI_QUI_LA_TUA_PASSWORD_SICURA
 
      
 # BACKEND & SICUREZZA (PHP/PDO)
