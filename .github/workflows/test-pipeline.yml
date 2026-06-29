@@ -9,13 +9,16 @@ jobs:
       - name: Scarica il codice
         uses: actions/checkout@v4
 
+      - name: Verifica lunghezza token
+        run: echo "Lunghezza token: ${#DOCKERHUB_TOKEN}"
+        env:
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Login su Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          registry: index.docker.io
-          debug: true
 
       - name: Build dell'immagine
         run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/mio-progetto:latest
