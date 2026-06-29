@@ -16,10 +16,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build dell'immagine
-        # È fondamentale taggare l'immagine con il tuo nome utente DockerHub
-        # Sostituisci "mio-progetto" con il nome che vuoi dare al repository su Docker Hub
         run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/mio-progetto:latest
 
       - name: Push su Docker Hub
-        # Carica l'immagine appena creata sul cloud di Docker
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/mio-progetto:latest
