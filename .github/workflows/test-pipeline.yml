@@ -3,17 +3,12 @@ name: Test Automazione
 on: [push]
 
 jobs:
-  verifica-progetto:
+  build-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Scarica il codice del progetto
+      - name: Scarica il codice
         uses: actions/checkout@v4
 
-      - name: Verifica esistenza file fondamentale
-        run: |
-          if [ -f docker-compose.yml ]; then
-            echo "File docker-compose.yml trovato! ✅"
-          else
-            echo "Errore: docker-compose.yml non trovato! ❌"
-            exit 1
-          fi
+      - name: Testa la Build Docker
+        # Questo comando prova a costruire l'immagine senza salvarla (tag --no-cache)
+        run: docker build . --file Dockerfile --tag test-image:latest
