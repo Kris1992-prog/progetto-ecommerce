@@ -3,13 +3,17 @@ name: Test Automazione
 on: [push]
 
 jobs:
-  lista-file:
+  verifica-progetto:
     runs-on: ubuntu-latest
     steps:
-      # Questo passaggio è fondamentale: scarica il codice nel runner
       - name: Scarica il codice del progetto
         uses: actions/checkout@v4
 
-      # Ora che il codice è presente, possiamo elencare i file
-      - name: Elenca i file presenti
-        run: ls -R
+      - name: Verifica esistenza file fondamentale
+        run: |
+          if [ -f docker-compose.yml ]; then
+            echo "File docker-compose.yml trovato! ✅"
+          else
+            echo "Errore: docker-compose.yml non trovato! ❌"
+            exit 1
+          fi
