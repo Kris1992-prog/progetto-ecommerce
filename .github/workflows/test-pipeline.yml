@@ -14,6 +14,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: index.docker.io
+          debug: true
 
       - name: Build dell'immagine
         run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/mio-progetto:latest
