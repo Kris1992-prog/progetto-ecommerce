@@ -1,5 +1,7 @@
 name: Test Automazione
 
+name: Test Automazione
+
 on: [push]
 
 jobs:
@@ -8,22 +10,10 @@ jobs:
     steps:
       - name: Scarica il codice
         uses: actions/checkout@v4
-
-        # QUESTO STEP CI DIRÀ LA VERITÀ
-      - name: Debug Secret (Controllo invisibile)
-        shell: bash
-        env:
-          TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-        run: |
-          echo "Il primo carattere del token è: '${TOKEN:0:1}'"
-          echo "L'ultimo carattere del token è: '${TOKEN: -1}'"
-          echo "La lunghezza totale del token è: ${#TOKEN}"
-
+      
       - name: Login su Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Build dell'immagine
         run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/mio-progetto:latest
