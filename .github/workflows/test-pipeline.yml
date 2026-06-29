@@ -3,12 +3,21 @@ name: Test Automazione
 on: [push]
 
 jobs:
-  build-test:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Scarica il codice
         uses: actions/checkout@v4
 
-      - name: Testa la Build Docker
-        # Questo comando prova a costruire l'immagine senza salvarla (tag --no-cache)
-        run: docker build . --file Dockerfile --tag test-image:latest
+      - name: Login su Docker Hub
+        # Usiamo i secrets che hai salvato per loggarci in sicurezza
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build dell'immagine
+        # È fondamentale taggare l'immagine con il tuo nome utente DockerHub
+        # Sostituisci "mio-progetto" con il nome che vuoi dare al repository su Docker Hub
+        run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/mio-progetto:latest
+
+      - name: Push su Docker Hub
+        # Carica l'immagine appena creata sul cloud di Docker
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/mio-progetto:latest
