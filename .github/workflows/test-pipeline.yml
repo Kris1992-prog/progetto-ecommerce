@@ -1,0 +1,12 @@
+name: Test Automazione
+
+# Diciamo a GitHub quando far partire questo script
+on: [push]
+
+# Definiamo cosa deve fare
+jobs:
+  saluto:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Esegui un comando di test
+        run: echo "GitHub Actions funziona correttamente!"
