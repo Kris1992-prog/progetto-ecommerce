@@ -1,12 +1,15 @@
 name: Test Automazione
 
-# Diciamo a GitHub quando far partire questo script
 on: [push]
 
-# Definiamo cosa deve fare
 jobs:
-  saluto:
+  lista-file:
     runs-on: ubuntu-latest
     steps:
-      - name: Esegui un comando di test
-        run: echo "GitHub Actions funziona correttamente!"
+      # Questo passaggio è fondamentale: scarica il codice nel runner
+      - name: Scarica il codice del progetto
+        uses: actions/checkout@v4
+
+      # Ora che il codice è presente, possiamo elencare i file
+      - name: Elenca i file presenti
+        run: ls -R
