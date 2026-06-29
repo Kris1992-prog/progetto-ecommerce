@@ -1,7 +1,5 @@
 name: Test Automazione
 
-name: Test Automazione
-
 on: [push]
 
 jobs:
