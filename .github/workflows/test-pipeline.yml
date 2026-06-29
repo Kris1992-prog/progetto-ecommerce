@@ -9,10 +9,15 @@ jobs:
       - name: Scarica il codice
         uses: actions/checkout@v4
 
-      - name: Verifica lunghezza token
-        run: echo "Lunghezza token: ${#DOCKERHUB_TOKEN}"
+        # QUESTO STEP CI DIRÀ LA VERITÀ
+      - name: Debug Secret (Controllo invisibile)
+        shell: bash
         env:
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo "Il primo carattere del token è: '${TOKEN:0:1}'"
+          echo "L'ultimo carattere del token è: '${TOKEN: -1}'"
+          echo "La lunghezza totale del token è: ${#TOKEN}"
 
       - name: Login su Docker Hub
         uses: docker/login-action@v3
