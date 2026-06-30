@@ -22,3 +22,18 @@ jobs:
           push: true
           # Usiamo github.sha per creare un tag unico per ogni commit
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
+
+          # --- QUI AGGIUNGIAMO IL TEST ---
+      - name: Test dell'immagine
+        run: |
+          # Avvia il container in background
+          docker run -d --name mio-container ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
+          # Aspetta qualche secondo per l'avvio
+          sleep 5
+          # Controlla che il container sia ancora in esecuzione
+          if [ "$(docker inspect -f '{{.State.Running}}' mio-container)" = "true" ]; then
+            echo "Test superato: Il container è in esecuzione!"
+          else
+            echo "Test fallito: Il container è crashato!"
+            exit 1
+          fi
