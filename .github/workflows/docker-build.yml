@@ -20,4 +20,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/test:latest
+          # Usiamo github.sha per creare un tag unico per ogni commit
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
