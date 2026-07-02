@@ -1,78 +1,44 @@
-/* Stile Dark Mode e Layout */
-body {
+/* 1. RESET GLOBALE (Valido per tutto il sito) */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* 2. STILE PAGINE DI LOGIN/REGISTRAZIONE */
+.page-auth {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.page-auth .container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+.page-auth h1 { text-align: center; color: #333; margin-bottom: 20px; }
+.page-auth input { width: 100%; padding: 10px; margin: 8px 0 20px 0; border: 1px solid #ccc; border-radius: 4px; }
+.page-auth button { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+
+/* 3. STILE HOME PAGE E PRODOTTI */
+.page-home {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+.page-home header { border-bottom: 1px solid #eaeaea; padding: 20px 40px; display: flex; justify-content: space-between; }
+.page-home .hero { padding: 80px 40px; text-align: center; background-color: #f8f8f8; }
+.page-home .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; padding: 40px; }
+.page-home .card { border: 1px solid #eee; padding: 20px; text-align: center; }
+
+/* 4. STILE CATALOGO DARK MODE (Solo dove serve) */
+.dark-mode {
     background-color: #121212;
     color: white;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
 }
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
-    padding: 20px;
-}
-
-.product-card {
-    background-color: #1e1e1e;
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.product-card h3 {
-    margin: 10px 0;
-}
-
-.price {
-    color: #FFD700; /* Giallo Oro */
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 15px 0;
-}
-
-.btn-info {
-    background-color: #444;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.btn-buy {
-    background-color: #FFD700;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-}
-
-.navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 10px;
-    background-color: #333;
-    display: flex; /* Mette gli elementi in orizzontale */
-    gap: 20px;     /* Spazio tra i link */
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.navbar a:hover {
-    color: #ffd700; /* Giallo al passaggio del mouse */
-}
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; padding: 20px; }
+.product-card { background-color: #1e1e1e; padding: 25px; border-radius: 20px; text-align: center; color: white; }
+.product-card .price { color: #FFD700; font-size: 1.5rem; font-weight: bold; }
+.product-card .btn-buy { background-color: #FFD700; color: black; padding: 10px; border: none; cursor: pointer; width: 100%; }
