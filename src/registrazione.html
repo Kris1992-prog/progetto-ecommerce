@@ -2,21 +2,36 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Registrati</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione - E-commerce</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <h1>Registrazione Nuovo Utente</h1>
+<body class="page-auth">
+    <div class="container">
+    <h1>Crea Account</h1>
     <form action="registra_utente.php" method="POST">
-        <label>Nome:</label><br>
-        <input type="text" name="nome" required><br><br>
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
         
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
+        <label>Cognome:</label>
+        <input type="text" name="cognome" required>
+
+        <label>Username:</label>
+        <input type="text" name="username" required>
         
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        
+        <label>Password:</label>
+        <input type="password" name="password" required>
         
         <button type="submit">Registrati</button>
     </form>
+    
+    <div class="back-link">
+        <a href="index.php">← Torna alla Home</a>
+    </div>
+</div>
+
 </body>
 </html>
