@@ -23,23 +23,8 @@ jobs:
         with:
           context: .
           push: true
-          # Usiamo github.sha per creare un tag unico per ogni commit
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
 
-          # --- QUI AGGIUNGIAMO IL TEST ---
-      - name: Test dell'immagine
-        run: |
-          # Avvia il container in background
-          docker run -d --name mio-container ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
-          # Aspetta qualche secondo per l'avvio
-          sleep 5
-          # Controlla che il container sia ancora in esecuzione
-          if [ "$(docker inspect -f '{{.State.Running}}' mio-container)" = "true" ]; then
-            echo "Test superato: Il container è in esecuzione!"
-          else
-            echo "Test fallito: Il container è crashato!"
-            exit 1
-          fi
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -61,7 +46,7 @@ jobs:
           docker rm container-di-test
 
   deploy:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Deploy su EC2
@@ -71,15 +56,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # 1. Login su Docker Hub
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-            
-            # 2. Entra nella cartella e aggiorna i file del progetto da GitHub
             cd /home/ec2-user/progetto-eccomerce
             git pull origin main
-            
-            # 3. Pull della nuova versione dell'immagine Docker
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
-            
-            # 4. Riavvio dei servizi
             docker-compose up -d
