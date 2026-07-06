@@ -1,16 +1,13 @@
-# --- FASE 1: La "Cucina" (Builder) ---
-# Usiamo l'immagine base per installare e compilare tutto
-FROM php:8.2-apache AS builder
-
-# Installiamo le estensioni (qui si crea il "disordine" di file temporanei)
-RUN docker-php-ext-install pdo pdo_mysql mysqli
-
-# --- FASE 2: La "Produzione" (Final) ---
-# Partiamo da una immagine base pulita e fresca
+# 1. Usiamo l'immagine ufficiale con Apache e PHP pre-installati
 FROM php:8.2-apache
 
-# Copiamo SOLO le estensioni compilate dalla FASE 1 alla FASE 2
-COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+# 2. Installiamo le estensioni necessarie
+RUN docker-php-ext-install pdo pdo_mysql mysqli
 
-# Copiamo anche i file di configurazione (.ini) che attivano le estensioni
-COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
+# 3. QUESTA È LA RIGA CHE MANCAVA!
+# Copia tutto il contenuto della cartella corrente (il tuo progetto) 
+# dentro la cartella del web server Apache
+COPY . /var/www/html/
+
+# 4. (Opzionale) Assicuriamoci che i permessi siano corretti
+RUN chown -R www-data:www-data /var/www/html
