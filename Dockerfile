@@ -7,7 +7,7 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 # 3. QUESTA È LA RIGA CHE MANCAVA!
 # Copia tutto il contenuto della cartella corrente (il tuo progetto) 
 # dentro la cartella del web server Apache
-COPY . /var/www/html/
+COPY src/ /var/www/html/
 
 # 4. (Opzionale) Assicuriamoci che i permessi siano corretti
 RUN chown -R www-data:www-data /var/www/html
