@@ -51,14 +51,15 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Login su Docker Hub
+            # 1. Login su Docker Hub
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
             
-            # Entra nella cartella corretta e aggiorna l'applicazione
+            # 2. Entra nella cartella e aggiorna i file del progetto da GitHub
             cd /home/ec2-user/progetto-eccomerce
+            git pull origin main
             
-            # Pull della nuova versione specifica
+            # 3. Pull della nuova versione dell'immagine Docker
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
             
-            # Riavvio dei servizi
+            # 4. Riavvio dei servizi
             docker-compose up -d
