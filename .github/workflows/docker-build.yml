@@ -40,3 +40,25 @@ jobs:
             echo "Test fallito: Il container è crashato!"
             exit 1
           fi
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy su EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Login su Docker Hub
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+            
+            # Entra nella cartella corretta e aggiorna l'applicazione
+            cd /home/ec2-user/progetto-eccomerce
+            
+            # Pull della nuova versione specifica
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
+            
+            # Riavvio dei servizi
+            docker-compose up -d
