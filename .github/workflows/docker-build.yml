@@ -61,3 +61,14 @@ jobs:
             git pull origin main
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
             docker-compose up -d
+      - name: Notifica Telegram
+        if: always() # Questo assicura che il messaggio arrivi anche se qualcosa va storto
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            MESSAGE="✅ Deployment completato con successo su EC2!"
+          else
+            MESSAGE="❌ Errore durante il deployment!"
+          fi
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          -d text="$MESSAGE"      
