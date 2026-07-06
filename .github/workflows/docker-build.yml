@@ -40,6 +40,26 @@ jobs:
             echo "Test fallito: Il container è crashato!"
             exit 1
           fi
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Avvia container per test
+        run: |
+          docker run -d --name container-di-test -p 8080:80 ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
+          sleep 10
+          
+      - name: Verifica risposta del server
+        run: |
+          curl --fail http://localhost:8080 || exit 1
+          echo "Il server risponde correttamente!"
+          
+      - name: Pulizia
+        if: always()
+        run: |
+          docker stop container-di-test
+          docker rm container-di-test
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
