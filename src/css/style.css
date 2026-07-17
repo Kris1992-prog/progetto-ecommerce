@@ -1,44 +1,214 @@
-/* 1. RESET GLOBALE (Valido per tutto il sito) */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ==========================================================================
+   1. SETUP DI BASE, FONT & VARIABILI
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* 2. STILE PAGINE DI LOGIN/REGISTRAZIONE */
+:root {
+    --bg-dark: #0b0c10;       /* Sfondo principale del sito */
+    --bg-card: #1f2833;       /* Sfondo dei box e dei contenitori */
+    --accent-gold: #ffcc00;   /* Colore oro One Piece (Prezzi e bottoni principali) */
+    --accent-green: #2ecc71;  /* Verde per tasti di successo/login */
+    --text-main: #ffffff;     /* Testo principale */
+    --text-muted: #c5a059;    /* Testo secondario o scritte dorate soft */
+    --text-gray: #95a5a6;     /* Testo grigio descrittivo */
+    --transition: all 0.3s ease;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+}
+
+/* Rimuove le sottolineature blu standard dai link della navbar */
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+}
+a:hover {
+    color: var(--accent-gold);
+}
+
+/* ==========================================================================
+   2. STILE PAGINE DI LOGIN / REGISTRAZIONE (.page-auth)
+   ========================================================================== */
 .page-auth {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
+    background-color: var(--bg-dark);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
+
 .page-auth .container {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: var(--bg-card);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     width: 100%;
     max-width: 400px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
-.page-auth h1 { text-align: center; color: #333; margin-bottom: 20px; }
-.page-auth input { width: 100%; padding: 10px; margin: 8px 0 20px 0; border: 1px solid #ccc; border-radius: 4px; }
-.page-auth button { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; cursor: pointer; }
 
-/* 3. STILE HOME PAGE E PRODOTTI */
-.page-home {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #fff;
-    color: #333;
+.page-auth h1 { 
+    text-align: center; 
+    color: var(--text-main); 
+    margin-bottom: 24px; 
+    font-weight: 600;
 }
-.page-home header { border-bottom: 1px solid #eaeaea; padding: 20px 40px; display: flex; justify-content: space-between; }
-.page-home .hero { padding: 80px 40px; text-align: center; background-color: #f8f8f8; }
-.page-home .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; padding: 40px; }
-.page-home .card { border: 1px solid #eee; padding: 20px; text-align: center; }
 
-/* 4. STILE CATALOGO DARK MODE (Solo dove serve) */
-.dark-mode {
-    background-color: #121212;
+.page-auth input { 
+    width: 100%; 
+    padding: 12px; 
+    margin: 8px 0 20px 0; 
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    border-radius: 6px; 
     color: white;
+    font-family: inherit;
+    transition: var(--transition);
 }
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; padding: 20px; }
-.product-card { background-color: #1e1e1e; padding: 25px; border-radius: 20px; text-align: center; color: white; }
-.product-card .price { color: #FFD700; font-size: 1.5rem; font-weight: bold; }
-.product-card .btn-buy { background-color: #FFD700; color: black; padding: 10px; border: none; cursor: pointer; width: 100%; }
+
+.page-auth input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.2);
+}
+
+.page-auth button { 
+    width: 100%; 
+    padding: 12px; 
+    background-color: var(--accent-green); 
+    color: #000; 
+    font-weight: 600;
+    font-family: inherit;
+    border: none; 
+    border-radius: 6px;
+    cursor: pointer; 
+    transition: var(--transition);
+}
+
+.page-auth button:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   3. STILE HOME PAGE E ELEMENTI COMUNI
+   ========================================================================== */
+.page-home {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+}
+
+.page-home header { 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+    padding: 20px 40px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.page-home .hero { 
+    padding: 100px 40px; 
+    text-align: center; 
+    background: linear-gradient(rgba(11, 12, 16, 0.8), var(--bg-dark)), url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1974') no-repeat center/cover; 
+}
+
+.page-home .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.page-home .hero p {
+    color: var(--text-gray);
+    margin-bottom: 20px;
+}
+
+.page-home .grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 30px; 
+    padding: 40px; 
+}
+
+/* Le card della home ora hanno lo stesso stile premium del catalogo */
+.page-home .card { 
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    border-radius: 16px;
+    padding: 25px; 
+    text-align: center; 
+    transition: var(--transition);
+}
+
+.page-home .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 204, 0, 0.1);
+    border-color: var(--accent-gold);
+}
+
+/* ==========================================================================
+   4. STILE CATALOGO (Griglia Prodotti & Card Dettaglio)
+   ========================================================================== */
+.dark-mode {
+    background-color: var(--bg-dark);
+}
+
+.product-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px; 
+    padding: 40px; 
+}
+
+.product-card { 
+    background-color: var(--bg-card); 
+    padding: 30px; 
+    border-radius: 16px; 
+    text-align: center; 
+    color: var(--text-main); 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+}
+
+/* Spettacolare effetto movimento quando si passa sopra un box di carte! */
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(255, 204, 0, 0.15);
+    border-color: var(--accent-gold);
+}
+
+.product-card .price { 
+    color: var(--accent-gold); 
+    font-size: 1.6rem; 
+    font-weight: 700; 
+    margin: 15px 0;
+}
+
+.product-card .btn-buy { 
+    background-color: var(--accent-gold); 
+    color: #000000; 
+    padding: 12px; 
+    font-weight: 600;
+    font-family: inherit;
+    border: none; 
+    border-radius: 8px;
+    cursor: pointer; 
+    width: 100%; 
+    transition: var(--transition);
+}
+
+.product-card .btn-buy:hover {
+    background-color: #e6b800;
+    transform: scale(1.02);
+}
