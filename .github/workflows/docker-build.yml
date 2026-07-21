@@ -57,7 +57,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-            cd /home/ec2-user/progetto-eccomerce
+            cd /home/ubuntu/progetto-ecommerce
             git pull origin main
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/test:${{ github.sha }}
             docker-compose up -d
