@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-deployment
+  labels:
+    app: ecommerce
+spec:
+  replicas: 2  # Crea 2 Pod identici del tuo e-commerce
+  selector:
+    matchLabels:
+      app: ecommerce
+  template:
+    metadata:
+      labels:
+        app: ecommerce
+    spec:
+      containers:
+      - name: ecommerce
+        # Sostituisci col tuo username Docker Hub e il tag della tua immagine
+        image: krisssssssssssss/test:latest
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
