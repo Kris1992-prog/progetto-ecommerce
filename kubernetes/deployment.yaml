@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ecommerce
 spec:
-  replicas: 2  # Crea 2 Pod identici del tuo e-commerce
+  replicas: 2
   selector:
     matchLabels:
       app: ecommerce
@@ -15,9 +15,46 @@ spec:
         app: ecommerce
     spec:
       containers:
-      - name: ecommerce
-        # Sostituisci col tuo username Docker Hub e il tag della tua immagine
-        image: krisssssssssssss/test:latest
+      - name: ecommerce-app
+        image: kris1992/progetto-ecommerce:v2
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-        imagePullPolicy: Always
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DB_USER
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DB_PASS
+        # --- CONTROLLO DI PRONTEZZA ---
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5   # Aspetta 5 secondi dopo l'avvio del container
+          periodSeconds: 10        # Controlla ogni 10 secondi
+          timeoutSeconds: 2        # Tempo massimo di attesa risposta
+
+        # --- CONTROLLO DI VITALITÀ ---
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15  # Aspetta 15 secondi prima di iniziare i controlli
+          periodSeconds: 20        # Controlla ogni 20 secondi
+          failureThreshold: 3      # Se fallisce 3 volte consecutive, riavvia il Pod
