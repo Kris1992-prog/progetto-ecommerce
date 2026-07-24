@@ -1,0 +1,20 @@
+replicaCount: 3
+
+image:
+  repository: kris1992/progetto-ecommerce
+  tag: v2
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  host: ecommerce.local
+
+database:
+  host: "terraform-20260723130802974700000001.cl8ic40uagu0.eu-south-1.rds.amazonaws.com"
+  name: "ecomedb"
+  user: "admin"
+  pass: "PasswordSicura123!"

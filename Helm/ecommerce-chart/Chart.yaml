@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ecommerce-chart
+description: Helm Chart per il deployment dell'e-commerce su Kubernetes
+type: application
+version: 0.1.0
+appVersion: "2.0.0"
