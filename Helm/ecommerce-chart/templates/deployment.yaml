@@ -41,6 +41,8 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-db-credentials
               key: DB_PASS
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
         readinessProbe:
           httpGet:
             path: /

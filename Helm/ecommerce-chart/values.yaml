@@ -18,3 +18,11 @@ database:
   name: "ecomedb"
   user: "admin"
   pass: "PasswordSicura123!"
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
